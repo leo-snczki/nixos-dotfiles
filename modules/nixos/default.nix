@@ -1,0 +1,20 @@
+{
+  imports =
+    [
+      ./bluetooth.nix
+      ./daemon.nix
+      ./docker.nix
+      ./fonts.nix
+      ./grub.nix
+      ./network.nix
+      ./nvidia.nix
+      ./packages.nix
+      ./security.nix
+      ./sound.nix
+      ./steam.nix
+      ./stirling.nix
+      ./thunar.nix
+      ./user.nix
+      ./X11.nix
+    ];
+}

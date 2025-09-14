@@ -1,0 +1,18 @@
+{
+  imports = [
+    ./bash.nix
+    ./chromium.nix
+    ./clipboard.nix
+    ./firefox.nix
+    ./git.nix
+    ./kitty.nix
+    ./librewolf.nix
+    ./packages.nix
+    ./picom.nix
+    ./rofi.nix
+    ./spicetify.nix
+    ./theme.nix
+    ./vscodium.nix
+    ./xdg.nix
+  ];
+}
