@@ -6,6 +6,7 @@
     displayManager.defaultSession = "none+awesome";
     xserver = {
       enable = true;
+      wacom.enable = true;
       xkb = {
         variant = "intl";
         options = "lv3:ralt_switch,grp:win_space_toggle";
