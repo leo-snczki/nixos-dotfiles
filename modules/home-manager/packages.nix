@@ -12,6 +12,7 @@
     pokeget-rs
     syncplay
     vlc
+    xournalpp
     youtube-music
   ];
 }
