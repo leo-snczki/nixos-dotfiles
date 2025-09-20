@@ -35,7 +35,6 @@
       nixd
       nixpkgs-fmt
       nix-search-cli
-      notion-app-enhanced
       pavucontrol
       php
       playerctl
