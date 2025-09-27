@@ -1,3 +1,4 @@
+{vars, ...}:
 {
   programs.git = {
     enable = true;
@@ -5,6 +6,7 @@
     userEmail = "79675019+leo-snczki@users.noreply.github.com";
     extraConfig = {
       init.defaultBranch = "main";
+      safety.directory = vars.dataDir;
     };
   };
 }

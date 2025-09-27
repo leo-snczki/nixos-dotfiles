@@ -8,6 +8,7 @@
       ./fonts.nix
       ./grub.nix
       ./network.nix
+      ./nginx.nix
       ./nvidia.nix
       ./packages.nix
       ./security.nix
