@@ -18,7 +18,7 @@
       url = "github:aksiksi/compose2nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
   };
 
@@ -28,6 +28,10 @@
       lib = nixpkgs.lib;
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      vars = rec {
+        app = "nameofproject";
+        dataDir = "/var/www/htdocs/site/${app}";
+      };
     in
     {
       nixosConfigurations.nixos = lib.nixosSystem {
@@ -37,6 +41,7 @@
           # Make flake inputs available in NixOS modules.
           inherit inputs;
           inherit system;
+          inherit vars;
         };
       };
 
@@ -46,7 +51,7 @@
           modules = [ ./home.nix ];
           extraSpecialArgs = {
             # Make flake inputs available in Home-manager modules.
-            inherit self inputs;
+            inherit self inputs vars;
           };
         };
       };
