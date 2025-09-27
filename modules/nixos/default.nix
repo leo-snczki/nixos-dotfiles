@@ -1,6 +1,7 @@
 {
   imports =
     [
+      ./battery.nix
       ./bluetooth.nix
       ./daemon.nix
       ./docker.nix
