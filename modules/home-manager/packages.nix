@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   home.packages = with pkgs; [
@@ -7,9 +7,11 @@
     fastfetch
     filezilla
     galculator
+    inputs.yt-x.packages."${system}".default
     lazygit
     libreoffice-qt
     pokeget-rs
+    rofi-screenshot
     syncplay
     vlc
     xournalpp

@@ -7,6 +7,7 @@
     ./git.nix
     ./kitty.nix
     ./librewolf.nix
+    ./mpv.nix
     ./packages.nix
     ./picom.nix
     ./rofi.nix
