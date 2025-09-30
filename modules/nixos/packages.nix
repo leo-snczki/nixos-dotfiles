@@ -15,6 +15,8 @@
       arandr
       asar
       btop
+      cava
+      cavalier
       docker-buildx
       easyeffects
       evtest
