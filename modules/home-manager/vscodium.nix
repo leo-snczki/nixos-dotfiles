@@ -13,9 +13,12 @@
         ms-dotnettools.csharp
         ms-dotnettools.vscode-dotnet-runtime
         ms-dotnettools.vscodeintellicode-csharp
+        ms-python.black-formatter
+        ms-python.flake8
         ms-python.python
         ms-vscode.live-server
         ms-vsliveshare.vsliveshare
+        oderwat.indent-rainbow
         ritwickdey.liveserver
         sumneko.lua
         yzhang.markdown-all-in-one
