@@ -7,6 +7,7 @@
       ./docker.nix
       ./fonts.nix
       ./grub.nix
+      ./localsend.nix
       ./network.nix
       ./nginx.nix
       ./nvidia.nix
