@@ -18,6 +18,7 @@
       ./stirling.nix
       ./thunar.nix
       ./user.nix
+      ./wireshark.nix
       ./X11.nix
     ];
 }

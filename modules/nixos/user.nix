@@ -3,7 +3,7 @@
     rambo = {
       isNormalUser = true;
       group = "users";
-      extraGroups = [ "wheel" "NetworkManager" ];
+      extraGroups = [ "wheel" "NetworkManager" "wireshark" ];
     };
   };
 }
