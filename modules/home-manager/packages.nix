@@ -14,6 +14,7 @@
     lazygit
     libreoffice-qt
     pokeget-rs
+    rofimoji
     rofi-screenshot
     syncplay
     vlc
