@@ -26,7 +26,8 @@
 
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
 
-    affinity-nix.url = "github:mrshmllow/affinity-nix";
+    affinity-nix.url = "github:leo-snczki/affinity-nix";
+
     viu.url = "github:leo-snczki/viu";
   };
 
