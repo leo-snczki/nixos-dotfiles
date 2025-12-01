@@ -5,24 +5,28 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
+  boot.supportedFilesystems = [ "ntfs" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/mapper/datajet";
+    {
+      device = "/dev/mapper/datajet";
       fsType = "btrfs";
-      options = ["compress=lzo" "discard=async"];
+      options = [ "compress=lzo" "discard=async" ];
     };
 
   boot.initrd.luks.devices."datajet".device = "/dev/disk/by-uuid/40882af9-ebab-47bf-9f51-9188305466a0";
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/BC9A-E13A";
+    {
+      device = "/dev/disk/by-uuid/BC9A-E13A";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
