@@ -6,6 +6,7 @@
     discord
     fastfetch
     filezilla
+    fzf
     galculator
     inputs.yt-x.packages."${system}".default
     inputs.affinity-nix.packages."${system}".default
