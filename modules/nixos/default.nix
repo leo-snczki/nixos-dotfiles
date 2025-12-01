@@ -20,5 +20,6 @@
       ./user.nix
       ./wireshark.nix
       ./X11.nix
+      ./zerotier.nix
     ];
 }
