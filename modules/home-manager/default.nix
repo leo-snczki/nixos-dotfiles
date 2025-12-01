@@ -1,6 +1,7 @@
 {
   imports = [
     ./bash.nix
+    ./caffeine.nix
     ./chromium.nix
     ./clipboard.nix
     ./firefox.nix
