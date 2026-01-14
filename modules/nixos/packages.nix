@@ -20,6 +20,8 @@
       docker-buildx
       easyeffects
       evtest
+      exfat
+      exfatprogs
       deluge-gtk
       git
       gparted
