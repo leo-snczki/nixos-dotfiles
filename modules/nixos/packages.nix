@@ -18,6 +18,7 @@
       cava
       cavalier
       docker-buildx
+      docker-compose
       easyeffects
       evtest
       exfat
