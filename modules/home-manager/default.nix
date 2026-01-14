@@ -4,8 +4,10 @@
     ./caffeine.nix
     ./chromium.nix
     ./clipboard.nix
+    ./desktop-entries.nix
     ./firefox.nix
     ./git.nix
+    ./java.nix
     ./kitty.nix
     ./librewolf.nix
     ./mpv.nix
