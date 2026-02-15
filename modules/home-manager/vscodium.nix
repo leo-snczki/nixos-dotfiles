@@ -21,8 +21,9 @@
         oderwat.indent-rainbow
         ritwickdey.liveserver
         sumneko.lua
-        yzhang.markdown-all-in-one
         xdebug.php-debug
+        yy0931.vscode-sqlite3-editor
+        yzhang.markdown-all-in-one
       ];
   };
 }
