@@ -2,10 +2,14 @@
 
 {
   home.packages = with pkgs; [
+    arduino-ide
+    python312
     desktop-file-utils
     discord
+    esptool
     fastfetch
     filezilla
+    fritzing
     fzf
     galculator
     inputs.yt-x.packages."${system}".default
