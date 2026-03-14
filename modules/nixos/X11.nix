@@ -8,9 +8,9 @@
       enable = true;
       wacom.enable = true;
       xkb = {
-        variant = "intl";
+        variant = "abnt2"; #intl
         options = "lv3:ralt_switch,grp:win_space_toggle";
-        layout = "us";
+        layout = "br"; #us
       };      
       windowManager.awesome = {
         enable = true;
