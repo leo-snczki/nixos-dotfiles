@@ -1,4 +1,4 @@
-{ self, pkgs, lib, ... }:
+{ self, pkgs, lib, inputs, ... }:
 
 # https://github.com/Kreyren/nixos-config/blob/bd4765eb802a0371de7291980ce999ccff59d619/nixos/users/kreyren/home/modules/web-browsers/firefox/firefox.nix
 
@@ -8,7 +8,7 @@ in
 {
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox;
+    package = inputs.nixpkgs-firefox.legacyPackages.${pkgs.system}.firefox;
 
     profiles.default = {
       settings = {
