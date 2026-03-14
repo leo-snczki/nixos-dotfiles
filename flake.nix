@@ -14,6 +14,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixpkgs-firefox.url = "github:nixos/nixpkgs/nixos-unstable";
+
     compose2nix = {
       url = "github:aksiksi/compose2nix";
       inputs.nixpkgs.follows = "nixpkgs";
