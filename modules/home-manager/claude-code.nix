@@ -71,6 +71,16 @@
     skills = { };
 
     # MCP servers: leave empty until you have servers to configure.
-    mcpServers = { };
+    mcpServers = { 
+      nixos = {
+        type = "stdio";
+        command = "nix";
+        args = [
+          "run"
+          "github:utensils/mcp-nixos"
+          "--"
+        ];
+      };
+    };
   };
 }
