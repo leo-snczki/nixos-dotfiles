@@ -3,6 +3,7 @@
     ./bash.nix
     ./caffeine.nix
     ./chromium.nix
+    ./claude-code.nix
     ./clipboard.nix
     ./firefox.nix
     ./git.nix
