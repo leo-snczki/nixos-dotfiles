@@ -29,6 +29,8 @@
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     
     viu.url = "github:leo-snczki/viu";
+
+    claude-code.url = "github:sadjow/claude-code-nix";
   };
 
 
@@ -36,7 +38,13 @@
     let
       lib = nixpkgs.lib;
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs {
+        inherit system;
+
+        overlays = [
+          inputs.claude-code.overlays.default
+        ];
+      };
       vars = rec {
         app = "nameofproject";
         dataDir = "/var/www/htdocs/site/${app}";
