@@ -10,7 +10,6 @@
       ./keyd.nix
       ./localsend.nix
       ./network.nix
-      ./nginx.nix
       ./nvidia.nix
       ./packages.nix
       ./security.nix

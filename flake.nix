@@ -27,9 +27,7 @@
     };
 
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-
-    affinity-nix.url = "github:leo-snczki/affinity-nix";
-
+    
     viu.url = "github:leo-snczki/viu";
   };
 
@@ -57,7 +55,7 @@
       };
 
       homeConfigurations = {
-        rambo = home-manager.lib.homeManagerConfiguration {
+        clotilde = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [ ./home.nix ];
           extraSpecialArgs = {

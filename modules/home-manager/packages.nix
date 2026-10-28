@@ -13,7 +13,7 @@
     fzf
     galculator
     inputs.yt-x.packages."${system}".default
-    inputs.affinity-nix.packages."${system}".default
+#    inputs.affinity-nix.packages."${system}".default
     inputs.viu.packages."${system}".default
     lazygit
     libreoffice-qt
@@ -23,6 +23,5 @@
     syncplay
     vlc
     xournalpp
-    youtube-music
   ];
 }

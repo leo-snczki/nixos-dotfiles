@@ -7,12 +7,12 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  home.username = "rambo";
-  home.homeDirectory = "/home/rambo";
-
+  home.username = "clotilde";
+  home.homeDirectory = "/home/clotilde";
+  home.pointerCursor.enable = true;
   home.file.".config/awesome".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/awesome";
 
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.11";
   programs.home-manager.enable = true;
 
 }

@@ -1,14 +1,10 @@
 { inputs, pkgs, ... }:
 
 {
-  programs.file-roller.enable = true;
   programs.dconf.enable = true;
   services.picom.enable = true;
 
   environment.systemPackages =
-    let
-      php = pkgs.php.buildEnv { extraConfig = "memory_limit = 2G"; };
-    in
     with pkgs; [
 
       alsa-utils
@@ -16,13 +12,14 @@
       asar
       btop
       cava
-      cavalier
+      cavasik
       docker-buildx
       docker-compose
       easyeffects
       evtest
       exfat
       exfatprogs
+      file-roller
       deluge-gtk
       git
       gparted
@@ -41,13 +38,14 @@
       nixpkgs-fmt
       nix-search-cli
       pavucontrol
-      php
       playerctl
       polkit_gnome
       polkit
       p7zip
       scrcpy
       sxiv
+      thunar-archive-plugin
+      thunar-volman
       unzip
       usbutils
       veracrypt
