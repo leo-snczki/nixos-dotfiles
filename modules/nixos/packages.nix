@@ -3,6 +3,7 @@
 {
   programs.dconf.enable = true;
   services.picom.enable = true;
+  programs.thunar.enable = true;
 
   environment.systemPackages =
     with pkgs; [
