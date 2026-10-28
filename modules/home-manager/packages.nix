@@ -21,6 +21,7 @@
     rofimoji
     rofi-screenshot
     syncplay
+    torrserver
     vlc
     xournalpp
   ];
