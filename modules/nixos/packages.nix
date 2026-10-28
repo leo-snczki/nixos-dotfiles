@@ -5,6 +5,19 @@
   services.picom.enable = true;
   programs.thunar.enable = true;
 
+  programs.nix-ld = {
+    enable = true;
+
+    libraries = with pkgs; [
+      stdenv.cc.cc
+      zlib
+      openssl
+      xz
+      sqlite
+      curl
+    ];
+  };
+
   environment.systemPackages =
     with pkgs; [
 
