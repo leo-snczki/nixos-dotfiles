@@ -41,7 +41,7 @@ in
       DisableFormHistory = true;
       DisablePasswordReveal = true;
       DontCheckDefaultBrowser = true;
-      HardwareAcceleration = false; # Disabled as it's exposes points for fingerprinting
+      HardwareAcceleration = true; # Disabled as it's exposes points for fingerprinting
       OfferToSaveLogins = false;
       EnableTrackingProtection = {
         Value = true;
