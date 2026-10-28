@@ -3,27 +3,23 @@
 {
   nixpkgs.config.nvidia.acceptLicense = true;
 
-  boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
-  
-  hardware.graphics.enable = true;
-  hardware.graphics.enable32Bit = true;
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
 
-  # services.xserver.videoDrivers = [ "nvidia" "modesetting" ];
   services.xserver.videoDrivers = [ "nvidia" ];
 
-
   hardware.nvidia = {
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
+    open = false;
+    modesetting.enable = true;
 
-    #modesetting.enable = true;
     powerManagement.enable = false;
     powerManagement.finegrained = false;
-    open = false;
     nvidiaSettings = true;
 
-    #package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
     prime = {
-      # sync.enable = true;
       offload.enable = true;
       offload.enableOffloadCmd = true;
       intelBusId = "PCI:0:2:0";
