@@ -24,7 +24,11 @@
     # Declarative settings: ~/.claude/settings.json
     settings = {
       theme = "dark";
-      includeCoAuthoredBy = false;
+      attribution = {
+        commit = "";
+        pr = "";
+        sessionUrl = false;
+      };
 
       permissions = {
         defaultMode = "auto";
