@@ -1,5 +1,6 @@
 {
   imports = [
+    ./artcraft.nix
     ./bash.nix
     ./caffeine.nix
     ./chromium.nix

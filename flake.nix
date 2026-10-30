@@ -31,6 +31,11 @@
     viu.url = "github:leo-snczki/viu";
 
     claude-code.url = "github:sadjow/claude-code-nix";
+
+    nix-craftapps = {
+      url = "github:olafkfreund/nix-craftapps";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
 

@@ -7,6 +7,9 @@
     # Use the native binary from sadjow/claude-code-nix.
     package = pkgs.claude-code;
 
+    # Merge servers from programs.mcp.servers (e.g. craftapps) into mcpServers.
+    enableMcpIntegration = true;
+
     # Global instructions: ~/.claude/CLAUDE.md
     context = ''
       # Global instructions
