@@ -41,7 +41,7 @@ in
       DisableFormHistory = true;
       DisablePasswordReveal = true;
       DontCheckDefaultBrowser = true;
-      HardwareAcceleration = true; # Disabled as it's exposes points for fingerprinting
+      HardwareAcceleration = true; # Little fingerprinting gain from disabling it; canvas/WebGL readouts are what leak
       OfferToSaveLogins = false;
       EnableTrackingProtection = {
         Value = true;
