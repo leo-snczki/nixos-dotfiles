@@ -27,7 +27,7 @@
       includeCoAuthoredBy = false;
 
       permissions = {
-        defaultMode = "default";
+        defaultMode = "auto";
 
         deny = [
           "Read(.env)"
