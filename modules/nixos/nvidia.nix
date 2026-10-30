@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
   nixpkgs.config.nvidia.acceptLicense = true;
@@ -6,6 +6,8 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
+    # VA-API driver (iHD) for the Intel iGPU, so browsers can decode video in hardware.
+    extraPackages = [ pkgs.intel-media-driver ];
   };
 
   services.xserver.videoDrivers = [ "nvidia" ];
