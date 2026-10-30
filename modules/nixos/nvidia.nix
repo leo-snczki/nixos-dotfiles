@@ -17,7 +17,8 @@
     open = false;
     modesetting.enable = true;
 
-    powerManagement.enable = false;
+    # Save/restore VRAM across suspend (nvidia-suspend/resume services).
+    powerManagement.enable = true;
     powerManagement.finegrained = false;
     nvidiaSettings = true;
 
