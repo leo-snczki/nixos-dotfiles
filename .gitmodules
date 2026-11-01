@@ -1,3 +1,6 @@
 [submodule "awesome"]
 	path = awesome
 	url = git@github.com:leo-snczki/awesome.git
+[submodule "config/ccstatusline"]
+	path = config/ccstatusline
+	url = git@github.com:leo-snczki/ccstatusline-json.git

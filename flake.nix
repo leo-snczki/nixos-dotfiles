@@ -32,6 +32,8 @@
 
     claude-code.url = "github:sadjow/claude-code-nix";
 
+    ccstatusline.url = "github:numtide/llm-agents.nix";
+
     nix-craftapps = {
       url = "github:olafkfreund/nix-craftapps";
       inputs.nixpkgs.follows = "nixpkgs";

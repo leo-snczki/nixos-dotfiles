@@ -1,6 +1,15 @@
-{ pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
+let
+  # ccstatusline from numtide/llm-agents.nix (not packaged in nixpkgs).
+  ccstatusline = inputs.ccstatusline.packages.${pkgs.stdenv.hostPlatform.system}.ccstatusline;
+in
 {
+  home.packages = [ ccstatusline ];
+
+  # ccstatusline widgets/theme from the config/ccstatusline submodule.
+  xdg.configFile."ccstatusline".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/config/ccstatusline";
+
   programs.claude-code = {
     enable = true;
 
@@ -24,6 +33,12 @@
     # Declarative settings: ~/.claude/settings.json
     settings = {
       theme = "dark";
+
+      statusLine = {
+        type = "command";
+        command = "${ccstatusline}/bin/ccstatusline";
+        padding = 0;
+      };
       attribution = {
         commit = "";
         pr = "";
