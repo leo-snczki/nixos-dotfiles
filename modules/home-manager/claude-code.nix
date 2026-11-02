@@ -52,6 +52,34 @@ in
       keystrokes, and drive the mouse. Run `tu usage` before the first
       interaction for the full command reference.
 
+      # Skills
+
+      Skills declared in modules/home-manager/claude-code.nix and artcraft.nix
+      are listed below. ~/.claude/skills stays writable, so there may also be
+      skills installed outside the Nix config (with `skills add -g`, synced or
+      by plugins): check the available skills list or run `skills list` before
+      assuming a skill is missing. Load skills with the Skill tool when the
+      task fits:
+
+      - `git-surgeon`: hunk-level staging, commit splitting, folding, squashing,
+        rewording and reordering, all non-interactive. Prefer it over
+        `git rebase -i` / `git add -p`. Write commit messages in English,
+        following Conventional Commits (`type(scope): summary`, max 72 chars).
+        Before rewriting history, create a backup branch and check the tree is
+        unchanged afterwards; leave force-pushes to the user.
+      - `find-skills`: search the skills ecosystem. `npx` is not installed: use
+        the `skills` CLI from Nix (`skills find <query>`) instead of
+        `npx skills`. To try a skill without installing it, read its SKILL.md
+        from GitHub or use `skills use <owner/repo>@<skill>`. To keep one, add
+        it declaratively here (flake input + `programs.claude-code.skills`)
+        rather than with `skills add`.
+      - `agent-browser`: browser automation (navigate, fill forms, click,
+        screenshot, scrape) and Electron apps.
+      - `terminal-browser`: show a website or rendered HTML in a split of the
+        user's terminal and drive it.
+      - `craftapps`: create or edit documents, spreadsheets, slides, PDFs,
+        images, vectors, CAD, video and audio with the Craft apps (MCP servers).
+
       # System
 
       - NixOS unstable (26.11, `nixos-unstable`), configured with flakes from
