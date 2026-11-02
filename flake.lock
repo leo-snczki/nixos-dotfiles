@@ -911,6 +911,22 @@
         "type": "github"
       }
     },
+    "replica-skill": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791029234,
+        "narHash": "sha256-laBspm9YJfL9eMbu9F/lji2bU8uafDSIfje4zp/QbH4=",
+        "owner": "Jakeschincariol",
+        "repo": "replica-skill",
+        "rev": "77c9436fb3d18c3d58169efb8caf4fe906b0dc51",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Jakeschincariol",
+        "repo": "replica-skill",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agent-browser": "agent-browser",
@@ -927,6 +943,7 @@
         "nixpkgs-firefox": "nixpkgs-firefox",
         "pdfvision": "pdfvision",
         "rea": "rea",
+        "replica-skill": "replica-skill",
         "skills": "skills",
         "spicetify-nix": "spicetify-nix",
         "terminal-browser": "terminal-browser",

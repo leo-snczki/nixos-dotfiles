@@ -74,6 +74,12 @@
       flake = false;
     };
 
+    # Claude Code plugin with the replica-* app-cloning skills (no release tags).
+    replica-skill = {
+      url = "github:Jakeschincariol/replica-skill";
+      flake = false;
+    };
+
     nix-craftapps = {
       url = "github:olafkfreund/nix-craftapps";
       inputs.nixpkgs.follows = "nixpkgs";

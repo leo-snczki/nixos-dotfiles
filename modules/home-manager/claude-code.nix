@@ -132,6 +132,10 @@ in
         against common LLM coding mistakes (think first, keep it simple, make
         surgical changes, verify against clear goals). Use when writing,
         reviewing or refactoring code.
+      - `replica-*` (replica-skill plugin): clone an app end to end — recon,
+        architecture, design, build, backend, tests, parity diff, user-review
+        analysis, rebranding, launch listing and deploy. Use when the user
+        wants to rebuild an existing app as their own product.
       - `agent-browser`: browser automation (navigate, fill forms, click,
         screenshot, scrape) and Electron apps.
       - `terminal-browser`: show a website or rendered HTML in a split of the
@@ -252,6 +256,7 @@ in
     plugins = {
       inherit watermarks-remover;
       andrej-karpathy-skills = flattenPluginSkills "andrej-karpathy-skills" inputs.andrej-karpathy-skills;
+      replica-skill = flattenPluginSkills "replica-skill" inputs.replica-skill;
     };
 
     # Custom skills: ~/.claude/skills/
