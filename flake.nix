@@ -68,6 +68,12 @@
       flake = false;
     };
 
+    # Claude Code plugin with the karpathy-guidelines skill (no release tags).
+    andrej-karpathy-skills = {
+      url = "github:multica-ai/andrej-karpathy-skills";
+      flake = false;
+    };
+
     nix-craftapps = {
       url = "github:olafkfreund/nix-craftapps";
       inputs.nixpkgs.follows = "nixpkgs";

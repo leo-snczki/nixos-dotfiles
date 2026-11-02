@@ -28,6 +28,25 @@ let
     exec npx -y rea-agents@${reaVersion} mcp "$@"
   '';
 
+  # HM links each top-level entry of a plugin as a symlink, and Claude Code
+  # refuses skill paths in plugin.json that go through a symlink. Copy the
+  # skills ("skills" is a list of skill dirs, or one dir holding them) to
+  # skills/<name> and drop the field, so the default skills/ discovery finds
+  # them instead. The skills themselves are unchanged.
+  flattenPluginSkills =
+    name: src:
+    pkgs.runCommand "${name}-plugin" { nativeBuildInputs = [ pkgs.jq ]; } ''
+      mkdir -p $out/.claude-plugin $out/skills
+      for skill in $(jq -r '.skills | if type == "string" then empty else .[] end' ${src}/.claude-plugin/plugin.json); do
+        cp -r ${src}/$skill $out/skills/$(basename $skill)
+      done
+      dir=$(jq -r '.skills | if type == "string" then . else empty end' ${src}/.claude-plugin/plugin.json)
+      for skill in ''${dir:+${src}/$dir/*/SKILL.md}; do
+        cp -r $(dirname $skill) $out/skills/
+      done
+      jq 'del(.skills)' ${src}/.claude-plugin/plugin.json > $out/.claude-plugin/plugin.json
+    '';
+
   # watermarks-remover plugin (guillaumemeyer/watermarks-remover), unchanged
   # except for hooks/hooks.json: its hook is registered in `hooks` below
   # instead, so it doesn't need Node.
@@ -109,6 +128,10 @@ in
         Skip it for ordinary source-repository analysis.
       - `logo-design`: design, critique and deliver logos as SVG, with a
         searchable library of reference logos and Python audit/export scripts.
+      - `karpathy-guidelines` (andrej-karpathy-skills plugin): guidelines
+        against common LLM coding mistakes (think first, keep it simple, make
+        surgical changes, verify against clear goals). Use when writing,
+        reviewing or refactoring code.
       - `agent-browser`: browser automation (navigate, fill forms, click,
         screenshot, scrape) and Electron apps.
       - `terminal-browser`: show a website or rendered HTML in a split of the
@@ -228,6 +251,7 @@ in
     # Plugins: ~/.claude/skills/<name>, loaded as personal plugins.
     plugins = {
       inherit watermarks-remover;
+      andrej-karpathy-skills = flattenPluginSkills "andrej-karpathy-skills" inputs.andrej-karpathy-skills;
     };
 
     # Custom skills: ~/.claude/skills/
