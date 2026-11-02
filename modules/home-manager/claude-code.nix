@@ -11,6 +11,7 @@ let
   terminal-use = inputs.terminal-use.packages.${pkgs.stdenv.hostPlatform.system}.terminal-use;
   skills = inputs.skills.packages.${pkgs.stdenv.hostPlatform.system}.skills;
   git-surgeon = inputs.git-surgeon.packages.${pkgs.stdenv.hostPlatform.system}.git-surgeon;
+  pdfvision = inputs.pdfvision.packages.${pkgs.stdenv.hostPlatform.system}.pdfvision;
 in
 {
   home.packages = [
@@ -20,6 +21,7 @@ in
     terminal-use
     skills
     git-surgeon
+    pdfvision
   ];
 
   # ccstatusline widgets/theme from the config/ccstatusline submodule.
@@ -73,6 +75,8 @@ in
         from GitHub or use `skills use <owner/repo>@<skill>`. To keep one, add
         it declaratively here (flake input + `programs.claude-code.skills`)
         rather than with `skills add`.
+      - `pdfvision`: extract text, metadata and page images from PDFs to read
+        them (the `pdfvision` CLI). For editing PDFs, use `craftapps` (PdfCraft).
       - `agent-browser`: browser automation (navigate, fill forms, click,
         screenshot, scrape) and Electron apps.
       - `terminal-browser`: show a website or rendered HTML in a split of the
@@ -175,6 +179,8 @@ in
       terminal-browser = "${terminal-browser}/lib/terminal-browser/skills/default/terminal-browser";
       find-skills = "${inputs.vercel-skills}/skills/find-skills";
       git-surgeon = "${git-surgeon}/share/skills/git-surgeon/git-surgeon";
+      # The package ships only the CLI; take the skill from the same source.
+      pdfvision = "${pdfvision.src}/skills/pdfvision";
     };
 
     # MCP servers: leave empty until you have servers to configure.

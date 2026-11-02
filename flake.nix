@@ -44,6 +44,8 @@
 
     git-surgeon.url = "github:numtide/llm-agents.nix";
 
+    pdfvision.url = "github:numtide/llm-agents.nix";
+
     # Source of the find-skills skill (the skills package ships only the CLI).
     vercel-skills = {
       url = "github:vercel-labs/skills";
