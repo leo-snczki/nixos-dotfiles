@@ -88,6 +88,12 @@
       flake = false;
     };
 
+    # token-savior MCP server source (packaged in claude-code.nix).
+    token-savior = {
+      url = "github:mibayy/token-savior/v4.24.0";
+      flake = false;
+    };
+
     nix-craftapps = {
       url = "github:olafkfreund/nix-craftapps";
       inputs.nixpkgs.follows = "nixpkgs";

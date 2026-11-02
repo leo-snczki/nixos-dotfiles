@@ -24,6 +24,40 @@ let
     cp $HOME/.claude/RTK.md $out
   '';
 
+  # token-savior MCP server (mibayy/token-savior): structural code navigation
+  # and persistent memory, to spend fewer tokens reading code. Not in nixpkgs,
+  # nor are its tree-sitter Java/Ruby grammar bindings (built from GitHub:
+  # the PyPI sdists lack tree_sitter/parser.h).
+  py = pkgs.python3Packages;
+  treeSitterGrammar =
+    pname: version: hash:
+    py.buildPythonPackage {
+      inherit pname version;
+      pyproject = true;
+      src = pkgs.fetchFromGitHub {
+        owner = "tree-sitter";
+        repo = pname;
+        tag = "v${version}";
+        inherit hash;
+      };
+      build-system = [ py.setuptools ];
+    };
+  token-savior = py.buildPythonApplication {
+    pname = "token-savior-recall";
+    version = "4.24.0";
+    pyproject = true;
+    src = inputs.token-savior;
+    build-system = [ py.hatchling ];
+    dependencies = [
+      py.mcp
+      py.pyyaml
+      py.tree-sitter
+      py.watchfiles
+      (treeSitterGrammar "tree-sitter-java" "0.23.5" "sha256-OvEO1BLZLjP3jt4gar18kiXderksFKO0WFXDQqGLRIY=")
+      (treeSitterGrammar "tree-sitter-ruby" "0.23.1" "sha256-iu3MVJl0Qr/Ba+aOttmEzMiVY6EouGi5wGOx5ofROzA=")
+    ];
+  };
+
   # REA (morluto/rea) lets Claude reverse engineer shipped artifacts: native
   # binaries, Electron/JS apps, packages, firmware and web apps. It comes in two
   # parts that are both needed: the reverse-engineer-anything skill tells Claude
@@ -322,6 +356,18 @@ in
       rea = {
         type = "stdio";
         command = "${rea-mcp}";
+      };
+
+      # Indexes the current directory (WORKSPACE_ROOTS defaults to it).
+      token-savior = {
+        type = "stdio";
+        command = "${token-savior}/bin/token-savior";
+        env = {
+          TOKEN_SAVIOR_CLIENT = "claude-code";
+          TOKEN_SAVIOR_PROFILE = "optimized";
+        };
+        # Load its tools up front instead of deferring them (upstream advice).
+        alwaysLoad = true;
       };
     };
   };

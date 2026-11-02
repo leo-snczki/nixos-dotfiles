@@ -1038,6 +1038,7 @@
         "spicetify-nix": "spicetify-nix",
         "terminal-browser": "terminal-browser",
         "terminal-use": "terminal-use",
+        "token-savior": "token-savior",
         "vercel-skills": "vercel-skills",
         "viu": "viu",
         "watermarks-remover": "watermarks-remover",
@@ -1328,6 +1329,23 @@
       "original": {
         "owner": "numtide",
         "repo": "llm-agents.nix",
+        "type": "github"
+      }
+    },
+    "token-savior": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792061444,
+        "narHash": "sha256-+oOycvbxbg5c7hJDMQWlzQROOmp/XAvcpxMLqQsjcz4=",
+        "owner": "mibayy",
+        "repo": "token-savior",
+        "rev": "770e055defd10b114591c4a426af67d9422e0330",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mibayy",
+        "ref": "v4.24.0",
+        "repo": "token-savior",
         "type": "github"
       }
     },
