@@ -12,8 +12,8 @@
     fritzing
     fzf
     galculator
-    inputs.yt-x.packages."${system}".default
-    inputs.viu.packages."${system}".default
+    inputs.yt-x.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.viu.packages.${pkgs.stdenv.hostPlatform.system}.default
     lazygit
     pokeget-rs
     rofimoji

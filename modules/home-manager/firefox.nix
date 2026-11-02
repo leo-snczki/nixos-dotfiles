@@ -8,7 +8,7 @@ in
 {
   programs.firefox = {
     enable = true;
-    package = inputs.nixpkgs-firefox.legacyPackages.${pkgs.system}.firefox;
+    package = inputs.nixpkgs-firefox.legacyPackages.${pkgs.stdenv.hostPlatform.system}.firefox;
 
     profiles.default = {
       settings = {
