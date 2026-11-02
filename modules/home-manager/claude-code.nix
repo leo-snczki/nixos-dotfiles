@@ -13,6 +13,17 @@ let
   git-surgeon = inputs.git-surgeon.packages.${pkgs.stdenv.hostPlatform.system}.git-surgeon;
   pdfvision = inputs.pdfvision.packages.${pkgs.stdenv.hostPlatform.system}.pdfvision;
 
+  # rtk rewrites Bash commands through a PreToolUse hook so their output is
+  # condensed before it reaches Claude. RTK.md is the short awareness file
+  # `rtk init -g` writes next to CLAUDE.md; generate it from the same binary.
+  rtk = inputs.rtk.packages.${pkgs.stdenv.hostPlatform.system}.rtk;
+  rtk-md = pkgs.runCommand "RTK.md" { } ''
+    export HOME=$TMPDIR XDG_CONFIG_HOME=$TMPDIR/.config
+    mkdir -p $HOME/.claude
+    ${rtk}/bin/rtk init -g --no-patch > /dev/null
+    cp $HOME/.claude/RTK.md $out
+  '';
+
   # REA (morluto/rea) lets Claude reverse engineer shipped artifacts: native
   # binaries, Electron/JS apps, packages, firmware and web apps. It comes in two
   # parts that are both needed: the reverse-engineer-anything skill tells Claude
@@ -65,7 +76,10 @@ in
     skills
     git-surgeon
     pdfvision
+    rtk
   ];
+
+  home.file.".claude/RTK.md".source = rtk-md;
 
   # ccstatusline widgets/theme from the config/ccstatusline submodule.
   xdg.configFile."ccstatusline".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/config/ccstatusline";
@@ -172,6 +186,8 @@ in
       run them (e.g. `! sudo nixos-rebuild switch --flake ~/.dotfiles`) rather
       than running them yourself. When the user mentions an alias, read it as
       the command above.
+
+      @RTK.md
     '';
 
     # Declarative settings: ~/.claude/settings.json
@@ -188,6 +204,18 @@ in
         pr = "";
         sessionUrl = false;
       };
+
+      hooks.PreToolUse = [
+        {
+          matcher = "Bash";
+          hooks = [
+            {
+              type = "command";
+              command = "${rtk}/bin/rtk hook claude";
+            }
+          ];
+        }
+      ];
 
       hooks.PostToolUse = [
         {
