@@ -34,6 +34,20 @@
 
     ccstatusline.url = "github:numtide/llm-agents.nix";
 
+    agent-browser.url = "github:numtide/llm-agents.nix";
+
+    terminal-browser.url = "github:numtide/llm-agents.nix";
+
+    terminal-use.url = "github:numtide/llm-agents.nix";
+
+    skills.url = "github:numtide/llm-agents.nix";
+
+    # Source of the find-skills skill (the skills package ships only the CLI).
+    vercel-skills = {
+      url = "github:vercel-labs/skills";
+      flake = false;
+    };
+
     nix-craftapps = {
       url = "github:olafkfreund/nix-craftapps";
       inputs.nixpkgs.follows = "nixpkgs";
