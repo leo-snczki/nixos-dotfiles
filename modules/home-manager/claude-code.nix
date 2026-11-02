@@ -49,6 +49,33 @@ in
       Use `tu` to run them in a virtual terminal, screenshot the screen, send
       keystrokes, and drive the mouse. Run `tu usage` before the first
       interaction for the full command reference.
+
+      # System
+
+      - NixOS unstable (26.11, `nixos-unstable`), configured with flakes from
+        ~/.dotfiles (system config in configuration.nix, entry point flake.nix).
+      - Home Manager runs standalone (not as a NixOS module), on the same flake:
+        user config in home.nix and modules/home-manager/, applied with
+        `home-manager switch --flake ~/.dotfiles`.
+      - Prefer Home Manager for user-level changes; touch the NixOS config only
+        for system-level ones. Never edit generated files under ~/.claude or
+        ~/.config directly; change the Nix source instead.
+
+      # Bash aliases
+
+      The user's shell aliases (from modules/home-manager/bash.nix in
+      ~/.dotfiles) for rebuilding the system:
+
+      - `bshm`  → `home-manager switch --flake ~/.dotfiles`
+      - `bsnix` → `sudo nixos-rebuild switch --flake ~/.dotfiles`
+      - `bbnix` → `sudo nixos-rebuild boot --flake ~/.dotfiles`
+      - `btnix` → `sudo nixos-rebuild test --flake ~/.dotfiles`
+
+      Aliases are not expanded in the non-interactive Bash tool, so run the full
+      command instead. The `sudo` ones need the user's password: ask the user to
+      run them (e.g. `! sudo nixos-rebuild switch --flake ~/.dotfiles`) rather
+      than running them yourself. When the user mentions an alias, read it as
+      the command above.
     '';
 
     # Declarative settings: ~/.claude/settings.json
