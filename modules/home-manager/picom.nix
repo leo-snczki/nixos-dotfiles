@@ -22,7 +22,6 @@
     ];
 
     settings = {
-      glx-no-stencil = true;
       glx-copy-from-font = false;
       use-damage = false;
       frame-opacity = 1;
