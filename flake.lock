@@ -618,6 +618,23 @@
         "type": "github"
       }
     },
+    "mattpocock-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793269649,
+        "narHash": "sha256-ej0ATi0BWaAx+83dBwgCQxr9J2L2qEwKhUIeIRJ03Go=",
+        "owner": "mattpocock",
+        "repo": "skills",
+        "rev": "d1478fcb140db0b93c0c8df17bcfd311844749d0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mattpocock",
+        "ref": "v1.3.2",
+        "repo": "skills",
+        "type": "github"
+      }
+    },
     "nix-craftapps": {
       "inputs": {
         "nixpkgs": [
@@ -938,6 +955,7 @@
         "git-surgeon": "git-surgeon",
         "home-manager": "home-manager",
         "logo-design-skill": "logo-design-skill",
+        "mattpocock-skills": "mattpocock-skills",
         "nix-craftapps": "nix-craftapps",
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-firefox": "nixpkgs-firefox",

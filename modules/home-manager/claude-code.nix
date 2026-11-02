@@ -136,6 +136,9 @@ in
         architecture, design, build, backend, tests, parity diff, user-review
         analysis, rebranding, launch listing and deploy. Use when the user
         wants to rebuild an existing app as their own product.
+      - `mattpocock-skills` plugin: engineering workflows (grilling a plan,
+        spec and ticket flows, TDD, diagnosing bugs, code review, domain
+        modelling, handoffs). Use the one that matches the task.
       - `agent-browser`: browser automation (navigate, fill forms, click,
         screenshot, scrape) and Electron apps.
       - `terminal-browser`: show a website or rendered HTML in a split of the
@@ -257,6 +260,7 @@ in
       inherit watermarks-remover;
       andrej-karpathy-skills = flattenPluginSkills "andrej-karpathy-skills" inputs.andrej-karpathy-skills;
       replica-skill = flattenPluginSkills "replica-skill" inputs.replica-skill;
+      mattpocock-skills = flattenPluginSkills "mattpocock-skills" inputs.mattpocock-skills;
     };
 
     # Custom skills: ~/.claude/skills/

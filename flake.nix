@@ -80,6 +80,12 @@
       flake = false;
     };
 
+    # Claude Code plugin with Matt Pocock's engineering skills.
+    mattpocock-skills = {
+      url = "github:mattpocock/skills/v1.3.2";
+      flake = false;
+    };
+
     nix-craftapps = {
       url = "github:olafkfreund/nix-craftapps";
       inputs.nixpkgs.follows = "nixpkgs";
