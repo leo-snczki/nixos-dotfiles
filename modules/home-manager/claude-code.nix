@@ -10,6 +10,7 @@ let
   terminal-browser = inputs.terminal-browser.packages.${pkgs.stdenv.hostPlatform.system}.terminal-browser;
   terminal-use = inputs.terminal-use.packages.${pkgs.stdenv.hostPlatform.system}.terminal-use;
   skills = inputs.skills.packages.${pkgs.stdenv.hostPlatform.system}.skills;
+  git-surgeon = inputs.git-surgeon.packages.${pkgs.stdenv.hostPlatform.system}.git-surgeon;
 in
 {
   home.packages = [
@@ -18,6 +19,7 @@ in
     terminal-browser
     terminal-use
     skills
+    git-surgeon
   ];
 
   # ccstatusline widgets/theme from the config/ccstatusline submodule.
@@ -144,6 +146,7 @@ in
       agent-browser = "${agent-browser}/share/agent-browser/skills/agent-browser";
       terminal-browser = "${terminal-browser}/lib/terminal-browser/skills/default/terminal-browser";
       find-skills = "${inputs.vercel-skills}/skills/find-skills";
+      git-surgeon = "${git-surgeon}/share/skills/git-surgeon/git-surgeon";
     };
 
     # MCP servers: leave empty until you have servers to configure.
