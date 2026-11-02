@@ -52,6 +52,17 @@
       flake = false;
     };
 
+    # REA skill source; pinned to a release so it matches the rea-agents MCP server.
+    rea = {
+      url = "github:morluto/rea/rea-agents-6.8.0";
+      flake = false;
+    };
+
+    logo-design-skill = {
+      url = "github:kaankiziltug/logo-design-skill/v1.4.5";
+      flake = false;
+    };
+
     nix-craftapps = {
       url = "github:olafkfreund/nix-craftapps";
       inputs.nixpkgs.follows = "nixpkgs";

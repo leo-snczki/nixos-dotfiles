@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
   # ccstatusline from numtide/llm-agents.nix (not packaged in nixpkgs).
@@ -12,6 +12,21 @@ let
   skills = inputs.skills.packages.${pkgs.stdenv.hostPlatform.system}.skills;
   git-surgeon = inputs.git-surgeon.packages.${pkgs.stdenv.hostPlatform.system}.git-surgeon;
   pdfvision = inputs.pdfvision.packages.${pkgs.stdenv.hostPlatform.system}.pdfvision;
+
+  # REA (morluto/rea) lets Claude reverse engineer shipped artifacts: native
+  # binaries, Electron/JS apps, packages, firmware and web apps. It comes in two
+  # parts that are both needed: the reverse-engineer-anything skill tells Claude
+  # when and how to investigate, and the rea MCP server provides the actual
+  # tools (decompile, inspect, compare versions, observe runtime behaviour).
+  #
+  # rea-agents (the MCP server) is not in nixpkgs; npx runs the release that
+  # matches the pinned skill source. Runs on the current Node LTS.
+  reaVersion = (lib.importJSON "${inputs.rea}/package.json").version;
+  # rea's scripts use `#!/usr/bin/env node`, so node must be on PATH.
+  rea-mcp = pkgs.writeShellScript "rea-mcp" ''
+    export PATH=${pkgs.nodejs_26}/bin:$PATH
+    exec npx -y rea-agents@${reaVersion} mcp "$@"
+  '';
 in
 {
   home.packages = [
@@ -77,6 +92,14 @@ in
         rather than with `skills add`.
       - `pdfvision`: extract text, metadata and page images from PDFs to read
         them (the `pdfvision` CLI). For editing PDFs, use `craftapps` (PdfCraft).
+      - `reverse-engineer-anything`: reverse engineer binaries, packaged and
+        Electron/JS apps, firmware and web apps when the answer depends on the
+        shipped artifact rather than source code (how a closed app works,
+        what changed between versions, decompiling). The skill gives the
+        workflow; the `rea` MCP server gives the tools, so use both together.
+        Skip it for ordinary source-repository analysis.
+      - `logo-design`: design, critique and deliver logos as SVG, with a
+        searchable library of reference logos and Python audit/export scripts.
       - `agent-browser`: browser automation (navigate, fill forms, click,
         screenshot, scrape) and Electron apps.
       - `terminal-browser`: show a website or rendered HTML in a split of the
@@ -181,6 +204,9 @@ in
       git-surgeon = "${git-surgeon}/share/skills/git-surgeon/git-surgeon";
       # The package ships only the CLI; take the skill from the same source.
       pdfvision = "${pdfvision.src}/skills/pdfvision";
+      # Workflow for the rea MCP server below (see the REA note at the top).
+      reverse-engineer-anything = "${inputs.rea}/.agents/skills/reverse-engineer-anything";
+      logo-design = "${inputs.logo-design-skill}/skills/logo-design";
     };
 
     # MCP servers: leave empty until you have servers to configure.
@@ -193,6 +219,12 @@ in
           "github:utensils/mcp-nixos"
           "--"
         ];
+      };
+
+      # Reverse-engineering tools used by the reverse-engineer-anything skill.
+      rea = {
+        type = "stdio";
+        command = "${rea-mcp}";
       };
     };
   };

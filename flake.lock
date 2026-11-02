@@ -585,6 +585,23 @@
         "type": "github"
       }
     },
+    "logo-design-skill": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792487643,
+        "narHash": "sha256-EnbDqHGRvpZupky6zDUffe3FmYI6f62WWZPM2GLlbME=",
+        "owner": "kaankiziltug",
+        "repo": "logo-design-skill",
+        "rev": "734090317a2155c5bf1ae8bd4cc85c6848a0128f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kaankiziltug",
+        "ref": "v1.4.5",
+        "repo": "logo-design-skill",
+        "type": "github"
+      }
+    },
     "nix-craftapps": {
       "inputs": {
         "nixpkgs": [
@@ -861,6 +878,23 @@
         "type": "github"
       }
     },
+    "rea": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792917315,
+        "narHash": "sha256-2ADn3U3lvUoB4tCEpzO0rMfYE4sis+5uBiEazcp0gpI=",
+        "owner": "morluto",
+        "repo": "rea",
+        "rev": "160d821ac9a0310afcb8d1fc427862dd6508add5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "morluto",
+        "ref": "rea-agents-6.8.0",
+        "repo": "rea",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agent-browser": "agent-browser",
@@ -870,10 +904,12 @@
         "firefox-addons": "firefox-addons",
         "git-surgeon": "git-surgeon",
         "home-manager": "home-manager",
+        "logo-design-skill": "logo-design-skill",
         "nix-craftapps": "nix-craftapps",
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-firefox": "nixpkgs-firefox",
         "pdfvision": "pdfvision",
+        "rea": "rea",
         "skills": "skills",
         "spicetify-nix": "spicetify-nix",
         "terminal-browser": "terminal-browser",
