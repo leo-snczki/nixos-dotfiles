@@ -916,6 +916,7 @@
         "terminal-use": "terminal-use",
         "vercel-skills": "vercel-skills",
         "viu": "viu",
+        "watermarks-remover": "watermarks-remover",
         "yt-x": "yt-x"
       }
     },
@@ -1348,6 +1349,22 @@
       "original": {
         "owner": "leo-snczki",
         "repo": "viu",
+        "type": "github"
+      }
+    },
+    "watermarks-remover": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793537166,
+        "narHash": "sha256-SBpttTS5eY7iYA4UdSbCmQKtoHYqP6Uw3uO8nqza1tc=",
+        "owner": "guillaumemeyer",
+        "repo": "watermarks-remover",
+        "rev": "5a62be6338d2812372b1da440e55c82922f97d53",
+        "type": "github"
+      },
+      "original": {
+        "owner": "guillaumemeyer",
+        "repo": "watermarks-remover",
         "type": "github"
       }
     },

@@ -27,6 +27,15 @@ let
     export PATH=${pkgs.nodejs_26}/bin:$PATH
     exec npx -y rea-agents@${reaVersion} mcp "$@"
   '';
+
+  # watermarks-remover plugin (guillaumemeyer/watermarks-remover), unchanged
+  # except for hooks/hooks.json: its hook is registered in `hooks` below
+  # instead, so it doesn't need Node.
+  watermarks-remover = pkgs.runCommand "watermarks-remover-plugin" { } ''
+    cp -r ${inputs.watermarks-remover} $out
+    chmod -R u+w $out
+    rm $out/hooks/hooks.json
+  '';
 in
 {
   home.packages = [
@@ -150,6 +159,19 @@ in
         sessionUrl = false;
       };
 
+      hooks.PostToolUse = [
+        {
+          matcher = "Write|Edit|MultiEdit|NotebookEdit";
+          hooks = [
+            {
+              type = "command";
+              command = "${config.programs.claude-code.configDir}/hooks/watermarks-remover";
+              timeout = 30;
+            }
+          ];
+        }
+      ];
+
       permissions = {
         defaultMode = "auto";
 
@@ -192,7 +214,21 @@ in
     };
 
     # Custom hooks: ~/.claude/hooks/
-    hooks = { };
+    hooks = {
+      # watermarks-remover PostToolUse hook: strips invisible Unicode (Layer A)
+      # and other provenance marks from files Claude writes, in place, and
+      # reports each cleanup. The plugin's run_hook.js only picks a Python 3.10+
+      # interpreter, so call the script directly.
+      watermarks-remover = ''
+        #!${pkgs.runtimeShell}
+        exec ${pkgs.python3}/bin/python3 ${watermarks-remover}/service/scripts/hook_written_file.py --mode clean "$@"
+      '';
+    };
+
+    # Plugins: ~/.claude/skills/<name>, loaded as personal plugins.
+    plugins = {
+      inherit watermarks-remover;
+    };
 
     # Custom skills: ~/.claude/skills/
     # Each skill is linked on its own, so ~/.claude/skills stays writable

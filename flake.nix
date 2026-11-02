@@ -63,6 +63,11 @@
       flake = false;
     };
 
+    watermarks-remover = {
+      url = "github:guillaumemeyer/watermarks-remover";
+      flake = false;
+    };
+
     nix-craftapps = {
       url = "github:olafkfreund/nix-craftapps";
       inputs.nixpkgs.follows = "nixpkgs";
