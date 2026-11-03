@@ -73,25 +73,6 @@ let
     exec npx -y rea-agents@${reaVersion} mcp "$@"
   '';
 
-  # HM links each top-level entry of a plugin as a symlink, and Claude Code
-  # refuses skill paths in plugin.json that go through a symlink. Copy the
-  # skills ("skills" is a list of skill dirs, or one dir holding them) to
-  # skills/<name> and drop the field, so the default skills/ discovery finds
-  # them instead. The skills themselves are unchanged.
-  flattenPluginSkills =
-    name: src:
-    pkgs.runCommand "${name}-plugin" { nativeBuildInputs = [ pkgs.jq ]; } ''
-      mkdir -p $out/.claude-plugin $out/skills
-      for skill in $(jq -r '.skills | if type == "string" then empty else .[] end' ${src}/.claude-plugin/plugin.json); do
-        cp -r ${src}/$skill $out/skills/$(basename $skill)
-      done
-      dir=$(jq -r '.skills | if type == "string" then . else empty end' ${src}/.claude-plugin/plugin.json)
-      for skill in ''${dir:+${src}/$dir/*/SKILL.md}; do
-        cp -r $(dirname $skill) $out/skills/
-      done
-      jq 'del(.skills)' ${src}/.claude-plugin/plugin.json > $out/.claude-plugin/plugin.json
-    '';
-
   # watermarks-remover plugin (guillaumemeyer/watermarks-remover), unchanged
   # except for hooks/hooks.json: its hook is registered in `hooks` below
   # instead, so it doesn't need Node.
@@ -320,9 +301,6 @@ in
     # Plugins: ~/.claude/skills/<name>, loaded as personal plugins.
     plugins = {
       inherit watermarks-remover;
-      andrej-karpathy-skills = flattenPluginSkills "andrej-karpathy-skills" inputs.andrej-karpathy-skills;
-      replica-skill = flattenPluginSkills "replica-skill" inputs.replica-skill;
-      mattpocock-skills = flattenPluginSkills "mattpocock-skills" inputs.mattpocock-skills;
     };
 
     # Custom skills: ~/.claude/skills/
@@ -338,7 +316,21 @@ in
       # Workflow for the rea MCP server below (see the REA note at the top).
       reverse-engineer-anything = "${inputs.rea}/.agents/skills/reverse-engineer-anything";
       logo-design = "${inputs.logo-design-skill}/skills/logo-design";
-    };
+
+      # Whole plugin repos, linked as real directories so Claude Code loads them
+      # as plugins. (The `plugins` option links each top-level entry as a
+      # symlink, and the skill paths these plugins list in plugin.json can't
+      # go through one.)
+      andrej-karpathy-skills = "${inputs.andrej-karpathy-skills}";
+      mattpocock-skills = "${inputs.mattpocock-skills}";
+    }
+    # replica-skill keeps its skills at the repo root ("skills": "./"), which a
+    # plugin in ~/.claude/skills doesn't load, so link each skill on its own.
+    // lib.genAttrs (lib.attrNames (
+      lib.filterAttrs (
+        name: type: type == "directory" && builtins.pathExists "${inputs.replica-skill}/${name}/SKILL.md"
+      ) (builtins.readDir inputs.replica-skill)
+    )) (name: "${inputs.replica-skill}/${name}");
 
     # MCP servers: leave empty until you have servers to configure.
     mcpServers = { 
