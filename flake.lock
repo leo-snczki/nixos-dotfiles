@@ -656,40 +656,6 @@
         "type": "github"
       }
     },
-    "impeccable": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1793057882,
-        "narHash": "sha256-gwI+IhgwmELfQnfXjUuel6u+zdFD0LZZCLhGH5MSIWk=",
-        "owner": "pbakaus",
-        "repo": "impeccable",
-        "rev": "414603bf14c7a344edb466bb1f85690c77ce8b7d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "pbakaus",
-        "ref": "skill-v4.8.0",
-        "repo": "impeccable",
-        "type": "github"
-      }
-    },
-    "logo-design-skill": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1792487643,
-        "narHash": "sha256-EnbDqHGRvpZupky6zDUffe3FmYI6f62WWZPM2GLlbME=",
-        "owner": "kaankiziltug",
-        "repo": "logo-design-skill",
-        "rev": "734090317a2155c5bf1ae8bd4cc85c6848a0128f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kaankiziltug",
-        "ref": "v1.4.5",
-        "repo": "logo-design-skill",
-        "type": "github"
-      }
-    },
     "mattpocock-skills": {
       "flake": false,
       "locked": {
@@ -1015,39 +981,6 @@
         "type": "github"
       }
     },
-    "rea": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1792917315,
-        "narHash": "sha256-2ADn3U3lvUoB4tCEpzO0rMfYE4sis+5uBiEazcp0gpI=",
-        "owner": "morluto",
-        "repo": "rea",
-        "rev": "160d821ac9a0310afcb8d1fc427862dd6508add5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "morluto",
-        "ref": "rea-agents-6.8.0",
-        "repo": "rea",
-        "type": "github"
-      }
-    },
-    "replica-skill": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1791029234,
-        "narHash": "sha256-laBspm9YJfL9eMbu9F/lji2bU8uafDSIfje4zp/QbH4=",
-        "owner": "Jakeschincariol",
-        "repo": "replica-skill",
-        "rev": "77c9436fb3d18c3d58169efb8caf4fe906b0dc51",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Jakeschincariol",
-        "repo": "replica-skill",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "agent-browser": "agent-browser",
@@ -1058,20 +991,15 @@
         "firefox-addons": "firefox-addons",
         "git-surgeon": "git-surgeon",
         "home-manager": "home-manager",
-        "impeccable": "impeccable",
-        "logo-design-skill": "logo-design-skill",
         "mattpocock-skills": "mattpocock-skills",
         "nix-craftapps": "nix-craftapps",
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-firefox": "nixpkgs-firefox",
         "nixpkgs-graphify": "nixpkgs-graphify",
         "pdfvision": "pdfvision",
-        "rea": "rea",
-        "replica-skill": "replica-skill",
         "rtk": "rtk",
         "skills": "skills",
         "spicetify-nix": "spicetify-nix",
-        "taste-skill": "taste-skill",
         "terminal-browser": "terminal-browser",
         "terminal-use": "terminal-use",
         "token-savior": "token-savior",
@@ -1321,23 +1249,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "taste-skill": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1792885339,
-        "narHash": "sha256-RpdiP+9Rh1sfPTsGnrKMmCiNT7T9l0/jnDrDYoAJukY=",
-        "owner": "leonxlnx",
-        "repo": "taste-skill",
-        "rev": "12af471f627f866411b4bd785b19646d3672784c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "leonxlnx",
-        "ref": "v2.1.5",
-        "repo": "taste-skill",
         "type": "github"
       }
     },

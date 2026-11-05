@@ -58,21 +58,6 @@ let
     ];
   };
 
-  # REA (morluto/rea) lets Claude reverse engineer shipped artifacts: native
-  # binaries, Electron/JS apps, packages, firmware and web apps. It comes in two
-  # parts that are both needed: the reverse-engineer-anything skill tells Claude
-  # when and how to investigate, and the rea MCP server provides the actual
-  # tools (decompile, inspect, compare versions, observe runtime behaviour).
-  #
-  # rea-agents (the MCP server) is not in nixpkgs; npx runs the release that
-  # matches the pinned skill source. Runs on the current Node LTS.
-  reaVersion = (lib.importJSON "${inputs.rea}/package.json").version;
-  # rea's scripts use `#!/usr/bin/env node`, so node must be on PATH.
-  rea-mcp = pkgs.writeShellScript "rea-mcp" ''
-    export PATH=${pkgs.nodejs_26}/bin:$PATH
-    exec npx -y rea-agents@${reaVersion} mcp "$@"
-  '';
-
   # graphify (nixpkgs) ships its Claude Code skill inside the Python package,
   # where `graphify install` would copy it from: skill.md plus the references/
   # it loads on demand. Without a .graphify_version stamp beside it, graphify
@@ -167,33 +152,14 @@ in
         rather than with `skills add`.
       - `pdfvision`: extract text, metadata and page images from PDFs to read
         them (the `pdfvision` CLI). For editing PDFs, use `craftapps` (PdfCraft).
-      - `reverse-engineer-anything`: reverse engineer binaries, packaged and
-        Electron/JS apps, firmware and web apps when the answer depends on the
-        shipped artifact rather than source code (how a closed app works,
-        what changed between versions, decompiling). The skill gives the
-        workflow; the `rea` MCP server gives the tools, so use both together.
-        Skip it for ordinary source-repository analysis.
       - `graphify`: turn a codebase or folder of docs, papers and media into
         a queryable knowledge graph (the `graphify` CLI). Use it for questions
         about a codebase's architecture, especially when `graphify-out/`
         exists.
-      - `logo-design`: design, critique and deliver logos as SVG, with a
-        searchable library of reference logos and Python audit/export scripts.
-      - `design-taste-frontend` (taste-skill): art direction for public web
-        pages (directions, palettes, type and section blueprints from a
-        library of gallery sites) with a browser inspector and a look-and-fix
-        loop. Use it to design or restyle a landing page or portfolio.
-      - `impeccable`: design critique, audit, polish, animation and
-        anti-pattern checks for any frontend; its sub-commands are listed in
-        the skill.
       - `karpathy-guidelines` (andrej-karpathy-skills plugin): guidelines
         against common LLM coding mistakes (think first, keep it simple, make
         surgical changes, verify against clear goals). Use when writing,
         reviewing or refactoring code.
-      - `replica-*` (replica-skill plugin): clone an app end to end — recon,
-        architecture, design, build, backend, tests, parity diff, user-review
-        analysis, rebranding, launch listing and deploy. Use when the user
-        wants to rebuild an existing app as their own product.
       - `mattpocock-skills` plugin: engineering workflows (grilling a plan,
         spec and ticket flows, TDD, diagnosing bugs, code review, domain
         modelling, handoffs). Use the one that matches the task.
@@ -203,6 +169,13 @@ in
         user's terminal and drive it.
       - `craftapps`: create or edit documents, spreadsheets, slides, PDFs,
         images, vectors, CAD, video and audio with the Craft apps (MCP servers).
+
+      Niche skills live in per-project GitHub template repos (a Nix devShell
+      links the skill into `.claude/skills/`): leo-snczki/rea-template
+      (reverse engineering, with the rea MCP server), replica-template (app
+      cloning), logo-design-template, taste-skill-template and
+      impeccable-template (frontend design). When a task needs one of them
+      and it isn't loaded, suggest starting a project from its template.
 
       # graphify
 
@@ -400,15 +373,7 @@ in
       git-surgeon = "${git-surgeon}/share/skills/git-surgeon/git-surgeon";
       # The package ships only the CLI; take the skill from the same source.
       pdfvision = "${pdfvision.src}/skills/pdfvision";
-      # Workflow for the rea MCP server below (see the REA note at the top).
-      reverse-engineer-anything = "${inputs.rea}/.agents/skills/reverse-engineer-anything";
-      logo-design = "${inputs.logo-design-skill}/skills/logo-design";
       graphify = graphify-skill;
-      taste-skill = "${inputs.taste-skill}/skills/taste-skill";
-      # Only the skill, not the plugin: its hooks would run the engine on every
-      # edit. The skill's launcher downloads its engine binary to
-      # ~/.impeccable on first use, verified against the pinned checksums.
-      impeccable = "${inputs.impeccable}/plugin/skills/impeccable";
 
       # Whole plugin repos, linked as real directories so Claude Code loads them
       # as plugins. (The `plugins` option links each top-level entry as a
@@ -416,14 +381,7 @@ in
       # go through one.)
       andrej-karpathy-skills = "${inputs.andrej-karpathy-skills}";
       mattpocock-skills = "${inputs.mattpocock-skills}";
-    }
-    # replica-skill keeps its skills at the repo root ("skills": "./"), which a
-    # plugin in ~/.claude/skills doesn't load, so link each skill on its own.
-    // lib.genAttrs (lib.attrNames (
-      lib.filterAttrs (
-        name: type: type == "directory" && builtins.pathExists "${inputs.replica-skill}/${name}/SKILL.md"
-      ) (builtins.readDir inputs.replica-skill)
-    )) (name: "${inputs.replica-skill}/${name}");
+    };
 
     # MCP servers: leave empty until you have servers to configure.
     mcpServers = { 
@@ -435,12 +393,6 @@ in
           "github:utensils/mcp-nixos"
           "--"
         ];
-      };
-
-      # Reverse-engineering tools used by the reverse-engineer-anything skill.
-      rea = {
-        type = "stdio";
-        command = "${rea-mcp}";
       };
 
       # Indexes the current directory (WORKSPACE_ROOTS defaults to it).

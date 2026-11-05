@@ -57,17 +57,6 @@
       flake = false;
     };
 
-    # REA skill source; pinned to a release so it matches the rea-agents MCP server.
-    rea = {
-      url = "github:morluto/rea/rea-agents-6.8.0";
-      flake = false;
-    };
-
-    logo-design-skill = {
-      url = "github:kaankiziltug/logo-design-skill/v1.4.5";
-      flake = false;
-    };
-
     watermarks-remover = {
       url = "github:guillaumemeyer/watermarks-remover";
       flake = false;
@@ -79,26 +68,9 @@
       flake = false;
     };
 
-    # Claude Code plugin with the replica-* app-cloning skills (no release tags).
-    replica-skill = {
-      url = "github:Jakeschincariol/replica-skill";
-      flake = false;
-    };
-
     # Claude Code plugin with Matt Pocock's engineering skills.
     mattpocock-skills = {
       url = "github:mattpocock/skills/v1.3.2";
-      flake = false;
-    };
-
-    # Design skills: taste-skill (art direction for web pages) and impeccable
-    # (design critique, polish and anti-pattern checks).
-    taste-skill = {
-      url = "github:leonxlnx/taste-skill/v2.1.5";
-      flake = false;
-    };
-    impeccable = {
-      url = "github:pbakaus/impeccable/skill-v4.8.0";
       flake = false;
     };
 
