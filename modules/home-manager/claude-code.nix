@@ -73,6 +73,23 @@ let
     exec npx -y rea-agents@${reaVersion} mcp "$@"
   '';
 
+  # graphify (nixpkgs) ships its Claude Code skill inside the Python package,
+  # where `graphify install` would copy it from: skill.md plus the references/
+  # it loads on demand. Without a .graphify_version stamp beside it, graphify
+  # doesn't try to refresh the read-only copy. Its interpreter lookup reads
+  # the `graphify` shebang, which is a bash wrapper here, and falls back to
+  # pip install; point both lookups at graphify-python (see the overlay).
+  graphify-skill = pkgs.runCommand "graphify-skill" { } ''
+    src=$(echo ${pkgs.graphify}/lib/python3*/site-packages/graphify)
+    mkdir $out
+    cp $src/skill.md $out/SKILL.md
+    cp -r $src/skills/claude/references $out/references
+    substituteInPlace $out/SKILL.md \
+      --replace-fail 'PYTHON=""' 'PYTHON=$(command -v graphify-python 2>/dev/null)' \
+      --replace-fail '    GRAPHIFY_BIN=$(which graphify 2>/dev/null)' '    GRAPHIFY_BIN=$(command -v graphify-python 2>/dev/null)' \
+      --replace-fail 'PYTHON=$(head -1 "$GRAPHIFY_BIN" | tr -d '"'"'#!'"'"')' 'PYTHON="$GRAPHIFY_BIN"'
+  '';
+
   # watermarks-remover plugin (guillaumemeyer/watermarks-remover), unchanged
   # except for hooks/hooks.json: its hook is registered in `hooks` below
   # instead, so it doesn't need Node.
@@ -92,6 +109,7 @@ in
     git-surgeon
     pdfvision
     rtk
+    pkgs.graphify
   ];
 
   home.file.".claude/RTK.md".source = rtk-md;
@@ -155,6 +173,10 @@ in
         what changed between versions, decompiling). The skill gives the
         workflow; the `rea` MCP server gives the tools, so use both together.
         Skip it for ordinary source-repository analysis.
+      - `graphify`: turn a codebase or folder of docs, papers and media into
+        a queryable knowledge graph (the `graphify` CLI). Use it for questions
+        about a codebase's architecture, especially when `graphify-out/`
+        exists.
       - `logo-design`: design, critique and deliver logos as SVG, with a
         searchable library of reference logos and Python audit/export scripts.
       - `design-taste-frontend` (taste-skill): art direction for public web
@@ -181,6 +203,26 @@ in
         user's terminal and drive it.
       - `craftapps`: create or edit documents, spreadsheets, slides, PDFs,
         images, vectors, CAD, video and audio with the Craft apps (MCP servers).
+
+      # graphify
+
+      Projects built with `/graphify` have a knowledge graph in graphify-out/
+      (god nodes, community structure, cross-file relationships). In those:
+
+      - When graphify-out/graph.json exists, run `graphify query "<question>"`
+        before your first grep, search or source-file read for a codebase
+        question, and put this rule in every subagent prompt that explores
+        code. Read raw files only for lines the graph or an earlier read
+        already located. Use `graphify path "<A>" "<B>"` for relationships
+        and `graphify explain "<concept>"` for focused concepts.
+      - If graphify-out/wiki/index.md exists, use it for broad navigation
+        instead of raw source browsing.
+      - Read graphify-out/GRAPH_REPORT.md only for broad architecture review
+        or when query/path/explain don't surface enough context.
+      - After modifying code, run `graphify update .` to keep the graph
+        current (AST-only, no API cost).
+      - A committed graphify-out/graph.json is rewritten whole on every
+        build: don't flag its large diffs as churn.
 
       # System
 
@@ -234,6 +276,44 @@ in
             {
               type = "command";
               command = "${rtk}/bin/rtk hook claude";
+            }
+          ];
+        }
+        # graphify's hooks, as `graphify claude install` would register them:
+        # in a project with a graph, they nudge searches and reads toward
+        # `graphify query`. Elsewhere they print nothing.
+        {
+          matcher = "Bash|Grep";
+          hooks = [
+            {
+              type = "command";
+              command = "${pkgs.graphify}/bin/graphify hook-guard search";
+              timeout = 10;
+            }
+          ];
+        }
+        {
+          matcher = "Read|Glob";
+          hooks = [
+            {
+              type = "command";
+              command = "${pkgs.graphify}/bin/graphify hook-guard read";
+              timeout = 10;
+            }
+          ];
+        }
+      ];
+
+      # In a git repo with a graph, install graphify's git hooks (rebuild the
+      # graph on commit, checkout and merge). Idempotent, so it runs every
+      # session.
+      hooks.SessionStart = [
+        {
+          hooks = [
+            {
+              type = "command";
+              command = "[ -f graphify-out/graph.json ] && git rev-parse --git-dir >/dev/null 2>&1 && ${pkgs.graphify}/bin/graphify hook install >/dev/null 2>&1; exit 0";
+              timeout = 30;
             }
           ];
         }
@@ -323,6 +403,7 @@ in
       # Workflow for the rea MCP server below (see the REA note at the top).
       reverse-engineer-anything = "${inputs.rea}/.agents/skills/reverse-engineer-anything";
       logo-design = "${inputs.logo-design-skill}/skills/logo-design";
+      graphify = graphify-skill;
       taste-skill = "${inputs.taste-skill}/skills/taste-skill";
       # Only the skill, not the plugin: its hooks would run the engine on every
       # edit. The skill's launcher downloads its engine binary to

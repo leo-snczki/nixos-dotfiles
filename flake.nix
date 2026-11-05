@@ -16,6 +16,9 @@
 
     nixpkgs-firefox.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    # graphify on its own nixpkgs, updated with `nix flake update nixpkgs-graphify`.
+    nixpkgs-graphify.url = "github:nixos/nixpkgs/nixos-unstable";
+
     compose2nix = {
       url = "github:aksiksi/compose2nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -121,6 +124,37 @@
 
         overlays = [
           inputs.claude-code.overlays.default
+
+          # graphify runs `sys.executable -m graphify` for its workers, git
+          # hooks and merge driver, but the nixpkgs wrapper only adds its
+          # modules inside its own process. Point sys.executable at a python
+          # that has them (graphify-python).
+          (final: prev:
+            let
+              gpkgs = inputs.nixpkgs-graphify.legacyPackages.${system};
+              # graphify has no Nix parser and skips .nix files; read them as
+              # documents instead (semantic extraction in /graphify).
+              base = gpkgs.graphify.overridePythonAttrs (old: {
+                postPatch = (old.postPatch or "") + ''
+                  substituteInPlace graphify/detect.py \
+                    --replace-fail "DOC_EXTENSIONS = {'.md'," "DOC_EXTENSIONS = {'.nix', '.md',"
+                '';
+              });
+            in {
+              graphify = prev.symlinkJoin {
+                inherit (base) name version meta;
+                paths = [ base ];
+                nativeBuildInputs = [ prev.makeWrapper ];
+                postBuild = ''
+                  makeWrapper ${gpkgs.python3}/bin/python $out/bin/graphify-python \
+                    --prefix PYTHONPATH : ${base}/${gpkgs.python3.sitePackages}:${gpkgs.python3Packages.makePythonPath base.dependencies} \
+                    --set NIX_PYTHONEXECUTABLE $out/bin/graphify-python
+                  rm $out/bin/graphify
+                  makeWrapper ${base}/bin/graphify $out/bin/graphify \
+                    --set NIX_PYTHONEXECUTABLE $out/bin/graphify-python
+                '';
+              };
+            })
         ];
       };
       vars = rec {

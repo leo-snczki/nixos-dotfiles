@@ -782,6 +782,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-graphify": {
+      "locked": {
+        "lastModified": 1793726008,
+        "narHash": "sha256-jQp1wKvbwWdLBASTXkSi/VYmDJ5AbBi1WvcMt9HWJC8=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "1d060086d60cb76a40cf37109f979d88a5bd6396",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_10": {
       "locked": {
         "lastModified": 1793345420,
@@ -1048,6 +1064,7 @@
         "nix-craftapps": "nix-craftapps",
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-firefox": "nixpkgs-firefox",
+        "nixpkgs-graphify": "nixpkgs-graphify",
         "pdfvision": "pdfvision",
         "rea": "rea",
         "replica-skill": "replica-skill",
