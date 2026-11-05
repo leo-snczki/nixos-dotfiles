@@ -5,6 +5,7 @@
     ./caffeine.nix
     ./chromium.nix
     ./claude-code.nix
+    ./direnv.nix
     ./clipboard.nix
     ./firefox.nix
     ./git.nix
