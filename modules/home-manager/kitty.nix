@@ -11,6 +11,9 @@
       window_padding_width = 10;
       background_opacity = "0.5";
       background_blur = 5;
+      # Needed by terminal-browser to open splits
+      allow_remote_control = "socket-only";
+      listen_on = "unix:/tmp/kitty";
     };
   };
 }
