@@ -656,6 +656,23 @@
         "type": "github"
       }
     },
+    "impeccable": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793057882,
+        "narHash": "sha256-gwI+IhgwmELfQnfXjUuel6u+zdFD0LZZCLhGH5MSIWk=",
+        "owner": "pbakaus",
+        "repo": "impeccable",
+        "rev": "414603bf14c7a344edb466bb1f85690c77ce8b7d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pbakaus",
+        "ref": "skill-v4.8.0",
+        "repo": "impeccable",
+        "type": "github"
+      }
+    },
     "logo-design-skill": {
       "flake": false,
       "locked": {
@@ -1025,6 +1042,7 @@
         "firefox-addons": "firefox-addons",
         "git-surgeon": "git-surgeon",
         "home-manager": "home-manager",
+        "impeccable": "impeccable",
         "logo-design-skill": "logo-design-skill",
         "mattpocock-skills": "mattpocock-skills",
         "nix-craftapps": "nix-craftapps",
@@ -1036,6 +1054,7 @@
         "rtk": "rtk",
         "skills": "skills",
         "spicetify-nix": "spicetify-nix",
+        "taste-skill": "taste-skill",
         "terminal-browser": "terminal-browser",
         "terminal-use": "terminal-use",
         "token-savior": "token-savior",
@@ -1285,6 +1304,23 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "taste-skill": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792885339,
+        "narHash": "sha256-RpdiP+9Rh1sfPTsGnrKMmCiNT7T9l0/jnDrDYoAJukY=",
+        "owner": "leonxlnx",
+        "repo": "taste-skill",
+        "rev": "12af471f627f866411b4bd785b19646d3672784c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "leonxlnx",
+        "ref": "v2.1.5",
+        "repo": "taste-skill",
         "type": "github"
       }
     },

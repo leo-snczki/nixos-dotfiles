@@ -88,6 +88,17 @@
       flake = false;
     };
 
+    # Design skills: taste-skill (art direction for web pages) and impeccable
+    # (design critique, polish and anti-pattern checks).
+    taste-skill = {
+      url = "github:leonxlnx/taste-skill/v2.1.5";
+      flake = false;
+    };
+    impeccable = {
+      url = "github:pbakaus/impeccable/skill-v4.8.0";
+      flake = false;
+    };
+
     # token-savior MCP server source (packaged in claude-code.nix).
     token-savior = {
       url = "github:mibayy/token-savior/v4.24.0";
