@@ -9,6 +9,19 @@
       safety.directory = vars.dataDir;
       pull.rebase = true;
     };
+
+    # Global ignores (core.excludesFile), for every repo on this machine.
+    ignores = [
+      "**/.claude/settings.local.json"
+      # graphify's local state; the graph itself (graph.json, GRAPH_REPORT.md)
+      # stays trackable.
+      "**/graphify-out/cache/*"
+      "**/graphify-out/cost.json"
+      "**/graphify-out/manifest.json"
+      "**/graphify-out/.graphify_python"
+      "**/graphify-out/.graphify_root"
+      "**/graphify-out/.graphify_labels.json"
+    ];
   };
 
   programs.gh = {
