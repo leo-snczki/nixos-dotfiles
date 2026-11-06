@@ -16,7 +16,7 @@
       ./sound.nix
       ./steam.nix
       ./stirling.nix
-      ./thunar.nix
+      ./nautilus.nix
       ./user.nix
       ./wireshark.nix
       ./X11.nix

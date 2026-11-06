@@ -3,7 +3,6 @@
 {
   programs.dconf.enable = true;
   services.picom.enable = true;
-  programs.thunar.enable = true;
 
   programs.nix-ld = {
     enable = true;
@@ -58,8 +57,6 @@
       p7zip
       scrcpy
       sxiv
-      thunar-archive-plugin
-      thunar-volman
       unzip
       usbutils
       veracrypt

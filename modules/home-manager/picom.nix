@@ -17,7 +17,7 @@
     inactiveOpacity = 1;
     opacityRules = [
       "90:class_g = 'rofi'"
-      "90:class_g = 'thunar'"
+      "90:class_g = 'org.gnome.Nautilus'"
       "90:class_g = 'codium'"
     ];
 

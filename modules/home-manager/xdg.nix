@@ -36,7 +36,7 @@
         "application/xml" = "codium.desktop";
         "text/css" = "codium.desktop";
         "application/x-shellscript" = "codium.desktop";
-        "inode/directory" = "thunar.desktop";
+        "inode/directory" = "org.gnome.Nautilus.desktop";
         "image/*" = "sxiv.desktop";
         "video/*" = "vlc.desktop";
         "audio/*" = "vlc.desktop";
