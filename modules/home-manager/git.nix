@@ -20,7 +20,9 @@
       "**/graphify-out/manifest.json"
       "**/graphify-out/.graphify_python"
       "**/graphify-out/.graphify_root"
-      "**/graphify-out/.graphify_labels.json"
+      "**/graphify-out/.graphify_labels*"
+      # dated snapshots written by `graphify update`
+      "**/graphify-out/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]/"
     ];
   };
 
