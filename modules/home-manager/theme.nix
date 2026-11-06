@@ -17,4 +17,8 @@
       name = "Tela-black";
     };
   };
+
+  # GTK4/libadwaita apps (Nautilus and other GNOME apps) ignore the GTK theme
+  # and follow this setting instead.
+  dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 }
