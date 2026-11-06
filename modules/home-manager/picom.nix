@@ -23,32 +23,22 @@
 
     settings = {
       glx-copy-from-font = false;
-      use-damage = false;
+      use-damage = true;
       frame-opacity = 1;
       blur-background = true;
       blur-method = "dual_kawase";
-      blur-strength = 10;
+      blur-strength = 6;
       corner-radius = 12;
       rounded-corners-exclude = [ "window_type = 'dock'" ];
-
-      # pijulius specifics
-      animations = true;
-      animation-stiffness = 500;
-      animation-window-mass = 1.0;
-      animation-dampening = 26;
-      animation-delta = 10;
-      animation-force_steps = false;
-      animation-clamping = true;
-
-      animation-for-open-window = "slide-up";
-      animation-for-menu-window = "slide-down";
-      animation-for-transient-window = "slide-down";
-      animation-for-unmap-window = "slide-up";
-
-      animation-for-next-tag = "slide-right";
-      animation-for-prev-tag = "slide-left";
-      enable-fading-next-tag = true;
-      enable-fading-prev-tag = true;
     };
+
+    # picom >= 12 animation scripts. A list of groups needs libconfig's ( ... ),
+    # which `settings` can't produce (it renders lists as [ ... ]).
+    extraConfig = ''
+      animations = (
+        { triggers = [ "open", "show" ]; preset = "slide-in"; direction = "up"; duration = 0.2; },
+        { triggers = [ "close", "hide" ]; preset = "slide-out"; direction = "down"; duration = 0.15; }
+      );
+    '';
   };
 }
