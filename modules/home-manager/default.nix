@@ -12,6 +12,7 @@
     ./kitty.nix
     ./librewolf.nix
     ./mpv.nix
+    ./nautilus.nix
     ./packages.nix
     ./picom.nix
     ./rofi.nix
